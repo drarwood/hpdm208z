@@ -135,11 +135,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#activity-3-refining-the-control-group" id="toc-activity-3-refining-the-control-group" class="nav-link" data-scroll-target="#activity-3-refining-the-control-group"><span class="header-section-number">8</span> Activity 3: Refining the control group</a>
   <ul class="collapse">
-  <li><a href="#cross-tabulate-cases-and-controls-from-cancer-registry-with-those-derived-from-other-data-sources" id="toc-cross-tabulate-cases-and-controls-from-cancer-registry-with-those-derived-from-other-data-sources" class="nav-link" data-scroll-target="#cross-tabulate-cases-and-controls-from-cancer-registry-with-those-derived-from-other-data-sources"><span class="header-section-number">8.1</span> Cross tabulate cases and controls from cancer registry with those derived from other data sources</a></li>
+  <li><a href="#cross-tabulate-cases-and-controls-from-cancer-registry-with-those-derived-from-other-data-sources-to-compare-discrepancies-in-casecontrol-numbers" id="toc-cross-tabulate-cases-and-controls-from-cancer-registry-with-those-derived-from-other-data-sources-to-compare-discrepancies-in-casecontrol-numbers" class="nav-link" data-scroll-target="#cross-tabulate-cases-and-controls-from-cancer-registry-with-those-derived-from-other-data-sources-to-compare-discrepancies-in-casecontrol-numbers"><span class="header-section-number">8.1</span> Cross tabulate cases and controls from cancer registry with those derived from other data sources to compare discrepancies in case/control numbers</a></li>
   <li><a href="#make-a-cleaner-colorectal-cancer-casecontrol-variable" id="toc-make-a-cleaner-colorectal-cancer-casecontrol-variable" class="nav-link" data-scroll-target="#make-a-cleaner-colorectal-cancer-casecontrol-variable"><span class="header-section-number">8.2</span> Make a cleaner colorectal cancer case/control variable</a></li>
   <li><a href="#questions-3" id="toc-questions-3" class="nav-link" data-scroll-target="#questions-3"><span class="header-section-number">8.3</span> Questions</a></li>
   </ul></li>
-  <li><a href="#activity-4-testing-other-risk-factors-against-cancer-risk" id="toc-activity-4-testing-other-risk-factors-against-cancer-risk" class="nav-link" data-scroll-target="#activity-4-testing-other-risk-factors-against-cancer-risk"><span class="header-section-number">9</span> Activity 4: Testing other risk factors against cancer risk</a>
+  <li><a href="#activity-4-testing-age-and-other-risk-factors-against-cancer-risk" id="toc-activity-4-testing-age-and-other-risk-factors-against-cancer-risk" class="nav-link" data-scroll-target="#activity-4-testing-age-and-other-risk-factors-against-cancer-risk"><span class="header-section-number">9</span> Activity 4: Testing age and other risk factors against cancer risk</a>
   <ul class="collapse">
   <li><a href="#questions-4" id="toc-questions-4" class="nav-link" data-scroll-target="#questions-4"><span class="header-section-number">9.1</span> Questions</a></li>
   </ul></li>
@@ -561,17 +561,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In the analyses of cancer, we would usually consider the UK cancer registry data to be the most accurate for defining cases, especially as this data undergo additional cleaning and validation.</p>
 <p>Although specific cancer cases identified from the cancer registry data are likely the most accurate, we might want to be sure that the control group (defined as not being in the registry for a specific cancer) does not include anyone who has ever had a respective cancer diagnosis recorded in other data sources.</p>
 <p>Therefore, we will make a “cleaner” control group by removing individuals from our analysis who are not recorded as having cancer based on the cancer registry data but are flagged elsewhere as having cancer elsewhere.</p>
-<section id="cross-tabulate-cases-and-controls-from-cancer-registry-with-those-derived-from-other-data-sources" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="cross-tabulate-cases-and-controls-from-cancer-registry-with-those-derived-from-other-data-sources"><span class="header-section-number">8.1</span> Cross tabulate cases and controls from cancer registry with those derived from other data sources</h2>
+<section id="cross-tabulate-cases-and-controls-from-cancer-registry-with-those-derived-from-other-data-sources-to-compare-discrepancies-in-casecontrol-numbers" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="cross-tabulate-cases-and-controls-from-cancer-registry-with-those-derived-from-other-data-sources-to-compare-discrepancies-in-casecontrol-numbers"><span class="header-section-number">8.1</span> Cross tabulate cases and controls from cancer registry with those derived from other data sources to compare discrepancies in case/control numbers</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross tablulate cancer registry data with HES:</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(disease_codes<span class="sc">$</span>hes_diag_crc, disease_codes<span class="sc">$</span>ca_reg_crc)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross tablulate cancer registry data with death registry:</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># insert code here</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross tablulate cancer registry data with self-report:</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># insert code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross tabulate cancer registry data with HES:</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># row sums -&gt; cancer registry, column sums -&gt; HES:</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(disease_codes<span class="sc">$</span>hes_diag_crc, disease_codes<span class="sc">$</span>ca_reg_crc)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross tabulate cancer registry data with death registry:</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># row sums -&gt; cancer registry, column sums -&gt; death registry):</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># insert code here</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross tabulate cancer registry data with self-report:</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># row sums -&gt; cancer registry, column sums -&gt; self-report:</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># insert code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="make-a-cleaner-colorectal-cancer-casecontrol-variable" class="level2" data-number="8.2">
@@ -592,18 +595,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <hr>
 </section>
 </section>
-<section id="activity-4-testing-other-risk-factors-against-cancer-risk" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> Activity 4: Testing other risk factors against cancer risk</h1>
-<p>Modify the logistic regression models to examine the effect of sex, bmi, and smoking status on colorectal cancer risk <code>ca_reg_crc2</code>. Note: smoking is a categorical variable so ensure your model treats it as a “factor” (<code>0</code>=never; <code>1</code>=former; <code>2</code>=current).</p>
+<section id="activity-4-testing-age-and-other-risk-factors-against-cancer-risk" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Activity 4: Testing age and other risk factors against cancer risk</h1>
+<p>Modify the logistic regression models to examine the effect of age, sex, bmi, and smoking status on colorectal cancer risk <code>ca_reg_crc2</code>. Note: smoking is a categorical variable so ensure your model treats it as a “factor” (<code>0</code>=never; <code>1</code>=former; <code>2</code>=current).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Case status regressed against BMI:</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># insert code here</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Case status regressed against Sex:</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># insert code here</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Case status regressed against Smoking status:</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># insert code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Case status regressed against Age at baseline:</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">=</span> <span class="fu">summary</span>(<span class="fu">glm</span>(ca_reg_crc2 <span class="sc">~</span> age, <span class="at">data=</span>disease_codes, <span class="at">family=</span>binomial))[[<span class="st">"coefficients"</span>]]</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(m1)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Age OR      = "</span>, <span class="fu">exp</span>(m1[<span class="dv">2</span>,<span class="dv">1</span>]), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>, <span class="at">sep=</span><span class="st">""</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Age L95% CI = "</span>, <span class="fu">exp</span>(m1[<span class="dv">2</span>,<span class="dv">1</span>] <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>m1[<span class="dv">2</span>,<span class="dv">2</span>]), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>, <span class="at">sep=</span><span class="st">""</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Age U95% CI = "</span>, <span class="fu">exp</span>(m1[<span class="dv">2</span>,<span class="dv">1</span>] <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>m1[<span class="dv">2</span>,<span class="dv">2</span>]), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>, <span class="at">sep=</span><span class="st">""</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Case status regressed against BMI:</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># insert code here</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Case status regressed against Sex:</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co"># insert code here</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Case status regressed against Smoking status:</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co"># insert code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Place age, sex, BMI and smoking status as independent variables into a single multivariable logistic regression model</p>
 <div class="cell">

@@ -416,7 +416,7 @@ mysql&gt;</code></pre>
 <h3 data-number="7.0.1" class="anchored" data-anchor-id="questions"><span class="header-section-number">7.0.1</span> Questions</h3>
 <ul>
 <li>What is the difference between <code>char()</code> and <code>varchar()</code> ?</li>
-<li>What is the difference between <code>PRI</code>, <code>UNI</code>, <code>MUL</code> values that can appear in the field?</li>
+<li>What is the difference between <code>PRI</code>, <code>UNI</code>, <code>MUL</code> values that can appear in the <code>Key</code> field?</li>
 </ul>
 <p><strong>Return to the module page to post your thoughts.</strong></p>
 <hr>
@@ -424,7 +424,7 @@ mysql&gt;</code></pre>
 </section>
 <section id="basic-queries" class="level1" data-number="8">
 <h1 data-number="8"><span class="header-section-number">8</span> Basic Queries</h1>
-<p>In this section, we will explore using MySQL to query tables in the database for the purposes of returning and filtering records.</p>
+<p>In this section, we will explore using MySQL to query tables in the <code>workshop</code> database for the purposes of returning and filtering records.</p>
 <section id="returning-table-rows-select" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="returning-table-rows-select"><span class="header-section-number">8.1</span> Returning table rows: <code>SELECT</code></h2>
 <p>The simplest SELECT query returns all the rows in a single table. Run the following command:</p>
@@ -605,7 +605,7 @@ mysql&gt;</code></pre>
 </tr>
 </tbody>
 </table>
-<p>For example, to return male patients with a BMI less than 15 from from the , we could use:</p>
+<p>For example, to return male patients with a BMI less than 15 from from the <code>study_patients</code>, we could use:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> study_patients <span class="kw">WHERE</span> bmi<span class="op">&lt;</span><span class="dv">15</span> <span class="kw">AND</span> sex <span class="op">=</span> <span class="ot">"Male"</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -714,7 +714,7 @@ mysql&gt;</code></pre>
 <h2 data-number="9.5" class="anchored" data-anchor-id="tasks-1"><span class="header-section-number">9.5</span> Tasks</h2>
 <p>Write separate queries to count the number of study participants who</p>
 <ul>
-<li>reported their smoking status as or at baseline</li>
+<li>reported their smoking status as <code>Current</code> or <code>Former</code> at baseline</li>
 <li>are in the cancer registry (ICD10) or death registry, but not both</li>
 </ul>
 <p><strong>Return to the module page to post a screenshot of the query and results</strong></p>
@@ -929,7 +929,7 @@ mysql&gt;</code></pre>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cp</span>  ~/hpdm208z/workshops/mysql/study_baseline.txt  /var/lib/mysql-files</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Now we will create a new table called in the <code>workshop</code> database.</p>
+<p>Now we will create a new table called <code>study_patients_innodb</code> in the <code>workshop</code> database.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> `study_patients_innodb` (</span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  `patient_id` <span class="dt">INT</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
@@ -972,7 +972,7 @@ mysql&gt;</code></pre>
 </div>
 <p><strong>Don’t do this now unless you really need to:</strong> To delete a table, we can use the <code>DROP</code> clause. For example:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">DROP</span> study_patients_innodb;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">DROP</span> <span class="kw">TABLE</span> study_patients_innodb;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="manually-inserting-records-into-a-table" class="level2" data-number="14.3">
@@ -1016,7 +1016,7 @@ mysql&gt;</code></pre>
 <span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> study_patients_innodb</span>
 <span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Note, we may want to only conditionally update values and so we can incorporate the clause into the query.</p>
+<p>Note, we may want to only conditionally update values and so we can incorporate the <code>WHERE</code> clause into the query.</p>
 <section id="tasks-4" class="level2" data-number="15.1">
 <h2 data-number="15.1" class="anchored" data-anchor-id="tasks-4"><span class="header-section-number">15.1</span> Tasks</h2>
 <ul>

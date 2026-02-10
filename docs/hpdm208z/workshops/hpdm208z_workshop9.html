@@ -6,8 +6,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Prof.&nbsp;Andrew R Wood">
-<meta name="dcterms.date" content="2026-01-26">
 
 <title>HPDM208Z Stratified Medicine Workshop 9: Genetic predictors of human health</title>
 <style>
@@ -118,19 +116,7 @@ window.Quarto = {
   
   <div class="quarto-title-meta">
 
-      <div>
-      <div class="quarto-title-meta-heading">Author</div>
-      <div class="quarto-title-meta-contents">
-               <p>Prof.&nbsp;Andrew R Wood <a href="mailto:A.R.Wood@exeter.ac.uk" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
-            </div>
-    </div>
       
-      <div>
-      <div class="quarto-title-meta-heading">Published</div>
-      <div class="quarto-title-meta-contents">
-        <p class="date">2026-01-26</p>
-      </div>
-    </div>
     
       
     </div>
@@ -280,7 +266,7 @@ window.Quarto = {
 <h1 data-number="6"><span class="header-section-number">6</span> Generating a PRS for Coronary Artery Disease</h1>
 <p>Let’s first load in genotype data for 66 SNPs known to be associated with Coronary Artery Disease (CAD) in 9,000 individuals using the file <code>cad_snp_genotypes.txt</code> into a DF called <code>cad_snp_genotypes</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read data in:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read genotype data in:</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>cad_snp_genotypes <span class="ot">=</span> <span class="fu">read.table</span>(<span class="st">"cad_snp_genotypes.txt"</span>, <span class="at">header=</span>T, <span class="at">stringsAsFactors=</span>F)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview first 10 rows and columns:</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>cad_snp_genotypes[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -305,7 +291,7 @@ window.Quarto = {
 <li>the associated effect as ln(OR) per <code>Effect_Allele</code> allele carried <code>Weight</code> in this dataset).</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read data in:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read genetic effect (weightings) data in:</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>cad_snp_weights <span class="ot">=</span> <span class="fu">read.table</span>(<span class="st">"cad_snp_weights.txt"</span>, <span class="at">header=</span>T, <span class="at">stringsAsFactors=</span>F)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview first 10 rows and columns:</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cad_snp_weights)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -321,7 +307,7 @@ window.Quarto = {
 </div>
 <p>We can align the information about SNP effects with genotypes for those SNPs by merging the above DFs together. We will create a DF called <code>cad_genetics</code> that provides the merged data of CAD-SNP genotypes and weights.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read data in:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge the effects data with the genotype data</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>cad_genetics <span class="ot">=</span> <span class="fu">merge</span>(cad_snp_weights, cad_snp_genotypes, <span class="at">by=</span><span class="st">"Rsid"</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview first 10 rows and columns:</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>cad_genetics[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -374,11 +360,10 @@ window.Quarto = {
 <h2 data-number="6.2" class="anchored" data-anchor-id="weighting-numbers-of-disease-risk-increasing-allele-by-their-effects"><span class="header-section-number">6.2</span> Weighting numbers of disease risk increasing allele by their effects</h2>
 <p>Now we will perform the multiplication of genotype values by the respecitive effect of the variant on CAD risk.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy DF containing genetic data related to CAD</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>cad_genetics_weighted[<span class="dv">7</span><span class="sc">:</span><span class="fu">ncol</span>(cad_genetics_weighted)] <span class="ot">=</span> cad_genetics_weighted[,<span class="dv">7</span><span class="sc">:</span><span class="fu">ncol</span>(cad_genetics_weighted)] <span class="sc">*</span> cad_genetics_weighted<span class="sc">$</span>Weight</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview first 10 rows and columns:</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>cad_genetics_weighted[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>cad_genetics_weighted[<span class="dv">7</span><span class="sc">:</span><span class="fu">ncol</span>(cad_genetics_weighted)] <span class="ot">=</span> cad_genetics_weighted[,<span class="dv">7</span><span class="sc">:</span><span class="fu">ncol</span>(cad_genetics_weighted)] <span class="sc">*</span> cad_genetics_weighted<span class="sc">$</span>Weight</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview first 10 rows and columns:</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>cad_genetics_weighted[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         Rsid Risk_Allele Other_Allele     Weight Allele1 Allele2      P7212      P3362      P4481      P1345
 1  rs10139550           G            C 0.05826891       C       G 0.05826891 0.00000000 0.00000000 0.05826891
@@ -395,15 +380,14 @@ window.Quarto = {
 </div>
 <p>Finally, we can create a DF that contains subjects IDs and their respective CAD PRS by summing up the weighted alleles for individual:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy DF containing genetic data related to CAD</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>cad_prs <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">names</span>(cad_genetics_weighted)[<span class="dv">7</span><span class="sc">:</span><span class="fu">ncol</span>(cad_genetics_weighted)],</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">prs =</span> <span class="fu">colSums</span>(cad_genetics_weighted[<span class="dv">7</span><span class="sc">:</span><span class="fu">ncol</span>(cad_genetics_weighted)]), </span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">row.names =</span> <span class="cn">NULL</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># preview</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cad_prs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>cad_prs <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">names</span>(cad_genetics_weighted)[<span class="dv">7</span><span class="sc">:</span><span class="fu">ncol</span>(cad_genetics_weighted)],</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">prs =</span> <span class="fu">colSums</span>(cad_genetics_weighted[<span class="dv">7</span><span class="sc">:</span><span class="fu">ncol</span>(cad_genetics_weighted)]), </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">row.names =</span> <span class="cn">NULL</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># preview</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cad_prs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     id      prs
 1 P7212 4.381356
@@ -421,7 +405,7 @@ window.Quarto = {
 <h2 data-number="6.3" class="anchored" data-anchor-id="comparing-the-distribution-of-cad-prs-between-cases-and-controls"><span class="header-section-number">6.3</span> Comparing the distribution of CAD-PRS between cases and controls</h2>
 <p>We will now compare how the PRS values compare between cases and controls for CAD. Intuitively, we should expect CAD cases to have higher PRS values on average than CAD controls so let’s check. First we will load in the phenotype file containing case (<code>1</code>) and control (<code>0</code>) status.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load in the phenotype data into a DF</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load in the CAD status phenotype data into a DF</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>cad_pheno <span class="ot">=</span> <span class="fu">read.table</span>(<span class="st">"cad_phenotype.txt"</span>, <span class="at">header=</span>T, <span class="at">stringsAsFactors =</span> F)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview DF</span></span>
@@ -438,7 +422,7 @@ window.Quarto = {
 </div>
 <p>Now we will merge the data held in the <code>cad_prs</code> DF.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load in the phenotype data into a DF</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge the phenotype data with the CAD-PRS data</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>cad_pheno_and_prs <span class="ot">=</span> <span class="fu">merge</span>(cad_pheno, cad_prs, <span class="at">by=</span><span class="st">"id"</span>)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview DF</span></span>
@@ -487,13 +471,13 @@ window.Quarto = {
 <h2 data-number="6.5" class="anchored" data-anchor-id="comparing-prevalence-of-cases-across-the-cad-prs-distribution"><span class="header-section-number">6.5</span> Comparing prevalence of cases across the CAD-PRS distribution</h2>
 <p>We will now compare the frequency of CAD cases among different quartiles of the CAD-PRS distribution.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get quintile vales from CAD PRS distribution:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get quartile vales from CAD PRS distribution:</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>quartiles <span class="ot">&lt;-</span> <span class="fu">quantile</span>(cad_pheno_and_prs<span class="sc">$</span>prs, <span class="at">probs =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.25</span>))</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># create a respective list of labels we can assign PRS values to</span></span>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>quartile_labels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Q1"</span>, <span class="st">"Q2"</span>, <span class="st">"Q3"</span>, <span class="st">"Q4"</span>)</span>
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># create a new column in cad_pheno_and_prs DF which labels the quintile the PRS falls into</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># create a new column in cad_pheno_and_prs DF which labels the quartile the PRS falls into</span></span>
 <span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>cad_pheno_and_prs<span class="sc">$</span>prs_quartile <span class="ot">&lt;-</span> <span class="fu">cut</span>(</span>
 <span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  cad_pheno_and_prs<span class="sc">$</span>prs,</span>
 <span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">breaks =</span> quartiles,</span>
@@ -548,7 +532,7 @@ window.Quarto = {
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>(<span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(pROC)))</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># create roc object we can use for funtions associated with pROC</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># create ROC object we can use for funtions associated with pROC</span></span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>roc_obj <span class="ot">=</span> <span class="fu">roc</span>(cad_pheno_and_prs<span class="sc">$</span>cad_status , cad_pheno_and_prs<span class="sc">$</span>prs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Setting levels: control = 0, case = 1</code></pre>
@@ -943,7 +927,7 @@ window.Quarto = {
 <span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge phenotype data into a DF</span></span>
 <span id="cb63-12"><a href="#cb63-12" aria-hidden="true" tabindex="-1"></a>cad_prs <span class="ot">=</span> <span class="fu">merge</span>(cad_prs, study2_pheno, <span class="at">by=</span><span class="st">"id"</span>)</span>
 <span id="cb63-13"><a href="#cb63-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb63-14"><a href="#cb63-14" aria-hidden="true" tabindex="-1"></a><span class="co"># create roc object we can use for funtions associated with pROC</span></span>
+<span id="cb63-14"><a href="#cb63-14" aria-hidden="true" tabindex="-1"></a><span class="co"># create roc object we can use for functions associated with pROC</span></span>
 <span id="cb63-15"><a href="#cb63-15" aria-hidden="true" tabindex="-1"></a>roc_obj <span class="ot">=</span> <span class="fu">roc</span>(cad_prs<span class="sc">$</span>cad_status , cad_prs<span class="sc">$</span>prs, <span class="at">quiet =</span> T)</span>
 <span id="cb63-16"><a href="#cb63-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb63-17"><a href="#cb63-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the area under the curve:</span></span>
